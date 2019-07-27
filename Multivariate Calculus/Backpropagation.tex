@@ -1,0 +1,666 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Bacpropagation}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Backpropagation}\label{backpropagation}
+
+\subsection{Instructions}\label{instructions}
+
+In this assignment, you will train a neural network to draw a curve. The
+curve takes one input variable, the amount travelled along the curve
+from 0 to 1, and returns 2 outputs, the 2D coordinates of the position
+of points on the curve.
+
+To help capture the complexity of the curve, we shall use two hidden
+layers in our network with 6 and 7 neurons respectively.
+
+\begin{figure}
+\centering
+\includegraphics{readonly/bigNet.png}
+\caption{Neural network with 2 hidden layers. There is 1 nodes in the
+zeroth layer, 6 in the first, 7 in the second, and 2 in the third.}
+\end{figure}
+
+You will be asked to complete functions that calculate the Jacobian of
+the cost function, with respect to the weights and biases of the
+network. Your code will form part of a stochastic steepest descent
+algorithm that will train your network.
+
+\subsubsection{Matrices in Python}\label{matrices-in-python}
+
+Recall from assignments in the previous course in this specialisation
+that matrices can be multiplied together in two ways.
+
+Element wise: when two matrices have the same dimensions, matrix
+elements in the same position in each matrix are multiplied together In
+python this uses the '\(*\)' operator.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OperatorTok{=}\NormalTok{ B }\OperatorTok{*}\NormalTok{ C}
+\end{Highlighting}
+\end{Shaded}
+
+Matrix multiplication: when the number of columns in the first matrix is
+the same as the number of rows in the second. In python this uses the
+'\(@\)' operator
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A }\OperatorTok{=}\NormalTok{ B }\OperatorTok{@}\NormalTok{ C}
+\end{Highlighting}
+\end{Shaded}
+
+This assignment will not test which ones to use where, but it will use
+both in the starter code presented to you. There is no need to change
+these or worry about their specifics.
+
+\subsubsection{How to submit}\label{how-to-submit}
+
+To complete the assignment, edit the code in the cells below where you
+are told to do so. Once you are finished and happy with it, press the
+\textbf{Submit Assignment} button at the top of this worksheet. Test
+your code using the cells at the bottom of the notebook before you
+submit.
+
+Please don't change any of the function names, as these will be checked
+by the grading script.
+
+    \subsection{Feed forward}\label{feed-forward}
+
+In the following cell, we will define functions to set up our neural
+network. Namely an activation function, \(\sigma(z)\), it's derivative,
+\(\sigma'(z)\), a function to initialise weights and biases, and a
+function that calculates each activation of the network using
+feed-forward.
+
+Recall the feed-forward equations,
+\[ \mathbf{a}^{(n)} = \sigma(\mathbf{z}^{(n)}) \]
+\[ \mathbf{z}^{(n)} = \mathbf{W}^{(n)}\mathbf{a}^{(n-1)} + \mathbf{b}^{(n)} \]
+
+In this worksheet we will use the \emph{logistic function} as our
+activation function, rather than the more familiar \(\tanh\).
+\[ \sigma(\mathbf{z}) = \frac{1}{1 + \exp(-\mathbf{z})} \]
+
+There is no need to edit the following cells. They do not form part of
+the assessment. You may wish to study how it works though.
+
+\textbf{Run the following cells before continuing.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{run} \PYZdq{}readonly/BackpropModule.ipynb\PYZdq{}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} PACKAGE}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} PACKAGE}
+        \PY{c+c1}{\PYZsh{} First load the worksheet dependencies.}
+        \PY{c+c1}{\PYZsh{} Here is the activation function and its derivative.}
+        \PY{n}{sigma} \PY{o}{=} \PY{k}{lambda} \PY{n}{z} \PY{p}{:} \PY{l+m+mi}{1} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{z}\PY{p}{)}\PY{p}{)}
+        \PY{n}{d\PYZus{}sigma} \PY{o}{=} \PY{k}{lambda} \PY{n}{z} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{cosh}\PY{p}{(}\PY{n}{z}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{4}
+        
+        \PY{c+c1}{\PYZsh{} This function initialises the network with it\PYZsq{}s structure, it also resets any training already done.}
+        \PY{k}{def} \PY{n+nf}{reset\PYZus{}network} \PY{p}{(}\PY{n}{n1} \PY{o}{=} \PY{l+m+mi}{6}\PY{p}{,} \PY{n}{n2} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{,} \PY{n}{random}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{p}{)} \PY{p}{:}
+            \PY{k}{global} \PY{n}{W1}\PY{p}{,} \PY{n}{W2}\PY{p}{,} \PY{n}{W3}\PY{p}{,} \PY{n}{b1}\PY{p}{,} \PY{n}{b2}\PY{p}{,} \PY{n}{b3}
+            \PY{n}{W1} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{n1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+            \PY{n}{W2} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{n2}\PY{p}{,} \PY{n}{n1}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+            \PY{n}{W3} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{n2}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+            \PY{n}{b1} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{n1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+            \PY{n}{b2} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{n2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+            \PY{n}{b3} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+        
+        \PY{c+c1}{\PYZsh{} This function feeds forward each activation to the next layer. It returns all weighted sums and activations.}
+        \PY{k}{def} \PY{n+nf}{network\PYZus{}function}\PY{p}{(}\PY{n}{a0}\PY{p}{)} \PY{p}{:}
+            \PY{n}{z1} \PY{o}{=} \PY{n}{W1} \PY{o}{@} \PY{n}{a0} \PY{o}{+} \PY{n}{b1}
+            \PY{n}{a1} \PY{o}{=} \PY{n}{sigma}\PY{p}{(}\PY{n}{z1}\PY{p}{)}
+            \PY{n}{z2} \PY{o}{=} \PY{n}{W2} \PY{o}{@} \PY{n}{a1} \PY{o}{+} \PY{n}{b2}
+            \PY{n}{a2} \PY{o}{=} \PY{n}{sigma}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+            \PY{n}{z3} \PY{o}{=} \PY{n}{W3} \PY{o}{@} \PY{n}{a2} \PY{o}{+} \PY{n}{b3}
+            \PY{n}{a3} \PY{o}{=} \PY{n}{sigma}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+            \PY{k}{return} \PY{n}{a0}\PY{p}{,} \PY{n}{z1}\PY{p}{,} \PY{n}{a1}\PY{p}{,} \PY{n}{z2}\PY{p}{,} \PY{n}{a2}\PY{p}{,} \PY{n}{z3}\PY{p}{,} \PY{n}{a3}
+        
+        \PY{c+c1}{\PYZsh{} This is the cost function of a neural network with respect to a training set.}
+        \PY{k}{def} \PY{n+nf}{cost}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{p}{:}
+            \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{network\PYZus{}function}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{/} \PY{n}{x}\PY{o}{.}\PY{n}{size}
+\end{Verbatim}
+
+
+    \subsection{Backpropagation}\label{backpropagation}
+
+In the next cells, you will be asked to complete functions for the
+Jacobian of the cost function with respect to the weights and biases. We
+will start with layer 3, which is the easiest, and work backwards
+through the layers.
+
+We'll define our Jacobians as,
+\[ \mathbf{J}_{\mathbf{W}^{(3)}} = \frac{\partial C}{\partial \mathbf{W}^{(3)}} \]
+\[ \mathbf{J}_{\mathbf{b}^{(3)}} = \frac{\partial C}{\partial \mathbf{b}^{(3)}} \]
+etc., where \(C\) is the average cost function over the training set.
+i.e., \[ C = \frac{1}{N}\sum_k C_k \] You calculated the following in
+the practice quizzes, \[ \frac{\partial C}{\partial \mathbf{W}^{(3)}} =
+   \frac{\partial C}{\partial \mathbf{a}^{(3)}}
+   \frac{\partial \mathbf{a}^{(3)}}{\partial \mathbf{z}^{(3)}}
+   \frac{\partial \mathbf{z}^{(3)}}{\partial \mathbf{W}^{(3)}}
+   ,\] for the weight, and similarly for the bias,
+\[ \frac{\partial C}{\partial \mathbf{b}^{(3)}} =
+   \frac{\partial C}{\partial \mathbf{a}^{(3)}}
+   \frac{\partial \mathbf{a}^{(3)}}{\partial \mathbf{z}^{(3)}}
+   \frac{\partial \mathbf{z}^{(3)}}{\partial \mathbf{b}^{(3)}}
+   .\] With the partial derivatives taking the form,
+\[ \frac{\partial C}{\partial \mathbf{a}^{(3)}} = 2(\mathbf{a}^{(3)} - \mathbf{y}) \]
+\[ \frac{\partial \mathbf{a}^{(3)}}{\partial \mathbf{z}^{(3)}} = \sigma'({z}^{(3)})\]
+\[ \frac{\partial \mathbf{z}^{(3)}}{\partial \mathbf{W}^{(3)}} = \mathbf{a}^{(2)}\]
+\[ \frac{\partial \mathbf{z}^{(3)}}{\partial \mathbf{b}^{(3)}} = 1\]
+
+We'll do the J\_W3 (\(\mathbf{J}_{\mathbf{W}^{(3)}}\)) function for you,
+so you can see how it works. You should then be able to adapt the J\_b3
+function, with help, yourself.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} GRADED FUNCTION}
+        
+        \PY{c+c1}{\PYZsh{} Jacobian for the third layer weights. There is no need to edit this function.}
+        \PY{k}{def} \PY{n+nf}{J\PYZus{}W3} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{p}{:}
+            \PY{c+c1}{\PYZsh{} First get all the activations and weighted sums at each layer of the network.}
+            \PY{n}{a0}\PY{p}{,} \PY{n}{z1}\PY{p}{,} \PY{n}{a1}\PY{p}{,} \PY{n}{z2}\PY{p}{,} \PY{n}{a2}\PY{p}{,} \PY{n}{z3}\PY{p}{,} \PY{n}{a3} \PY{o}{=} \PY{n}{network\PYZus{}function}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} We\PYZsq{}ll use the variable J to store parts of our result as we go along, updating it in each line.}
+            \PY{c+c1}{\PYZsh{} Firstly, we calculate dC/da3, using the expressions above.}
+            \PY{n}{J} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{p}{(}\PY{n}{a3} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Next multiply the result we\PYZsq{}ve calculated by the derivative of sigma, evaluated at z3.}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Then we take the dot product (along the axis that holds the training examples) with the final partial derivative,}
+            \PY{c+c1}{\PYZsh{} i.e. dz3/dW3 = a2}
+            \PY{c+c1}{\PYZsh{} and divide by the number of training examples, for the average over all training examples.}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{@} \PY{n}{a2}\PY{o}{.}\PY{n}{T} \PY{o}{/} \PY{n}{x}\PY{o}{.}\PY{n}{size}
+            \PY{c+c1}{\PYZsh{} Finally return the result out of the function.}
+            \PY{k}{return} \PY{n}{J}
+        
+        \PY{c+c1}{\PYZsh{} In this function, you will implement the jacobian for the bias.}
+        \PY{c+c1}{\PYZsh{} As you will see from the partial derivatives, only the last partial derivative is different.}
+        \PY{c+c1}{\PYZsh{} The first two partial derivatives are the same as previously.}
+        \PY{c+c1}{\PYZsh{} ===YOU SHOULD EDIT THIS FUNCTION===}
+        \PY{k}{def} \PY{n+nf}{J\PYZus{}b3} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{p}{:}
+            \PY{c+c1}{\PYZsh{} As last time, we\PYZsq{}ll first set up the activations.}
+            \PY{n}{a0}\PY{p}{,} \PY{n}{z1}\PY{p}{,} \PY{n}{a1}\PY{p}{,} \PY{n}{z2}\PY{p}{,} \PY{n}{a2}\PY{p}{,} \PY{n}{z3}\PY{p}{,} \PY{n}{a3} \PY{o}{=} \PY{n}{network\PYZus{}function}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Next you should implement the first two partial derivatives of the Jacobian.}
+            \PY{c+c1}{\PYZsh{} ===COPY TWO LINES FROM THE PREVIOUS FUNCTION TO SET UP THE FIRST TWO JACOBIAN TERMS===}
+            \PY{n}{J} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{p}{(}\PY{n}{a3} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} For the final line, we don\PYZsq{}t need to multiply by dz3/db3, because that is multiplying by 1.}
+            \PY{c+c1}{\PYZsh{} We still need to sum over all training examples however.}
+            \PY{c+c1}{\PYZsh{} There is no need to edit this line.}
+            \PY{n}{J} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{J}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{o}{/} \PY{n}{x}\PY{o}{.}\PY{n}{size}
+            \PY{k}{return} \PY{n}{J}
+\end{Verbatim}
+
+
+    We'll next do the Jacobian for the Layer 2. The partial derivatives for
+this are, \[ \frac{\partial C}{\partial \mathbf{W}^{(2)}} =
+   \frac{\partial C}{\partial \mathbf{a}^{(3)}}
+   \left(
+   \frac{\partial \mathbf{a}^{(3)}}{\partial \mathbf{a}^{(2)}}
+   \right)
+   \frac{\partial \mathbf{a}^{(2)}}{\partial \mathbf{z}^{(2)}}
+   \frac{\partial \mathbf{z}^{(2)}}{\partial \mathbf{W}^{(2)}}
+   ,\] \[ \frac{\partial C}{\partial \mathbf{b}^{(2)}} =
+   \frac{\partial C}{\partial \mathbf{a}^{(3)}}
+   \left(
+   \frac{\partial \mathbf{a}^{(3)}}{\partial \mathbf{a}^{(2)}}
+   \right)
+   \frac{\partial \mathbf{a}^{(2)}}{\partial \mathbf{z}^{(2)}}
+   \frac{\partial \mathbf{z}^{(2)}}{\partial \mathbf{b}^{(2)}}
+   .\] This is very similar to the previous layer, with two exceptions:
+* There is a new partial derivative, in parentheses,
+\(\frac{\partial \mathbf{a}^{(3)}}{\partial \mathbf{a}^{(2)}}\) * The
+terms after the parentheses are now one layer lower.
+
+Recall the new partial derivative takes the following form,
+\[ \frac{\partial \mathbf{a}^{(3)}}{\partial \mathbf{a}^{(2)}} =
+   \frac{\partial \mathbf{a}^{(3)}}{\partial \mathbf{z}^{(3)}}
+   \frac{\partial \mathbf{z}^{(3)}}{\partial \mathbf{a}^{(2)}} =
+   \sigma'(\mathbf{z}^{(3)})
+   \mathbf{W}^{(3)}
+\]
+
+To show how this changes things, we will implement the Jacobian for the
+weight again and ask you to implement it for the bias.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} GRADED FUNCTION}
+        
+        \PY{c+c1}{\PYZsh{} Compare this function to J\PYZus{}W3 to see how it changes.}
+        \PY{c+c1}{\PYZsh{} There is no need to edit this function.}
+        \PY{k}{def} \PY{n+nf}{J\PYZus{}W2} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{p}{:}
+            \PY{c+c1}{\PYZsh{}The first two lines are identical to in J\PYZus{}W3.}
+            \PY{n}{a0}\PY{p}{,} \PY{n}{z1}\PY{p}{,} \PY{n}{a1}\PY{p}{,} \PY{n}{z2}\PY{p}{,} \PY{n}{a2}\PY{p}{,} \PY{n}{z3}\PY{p}{,} \PY{n}{a3} \PY{o}{=} \PY{n}{network\PYZus{}function}\PY{p}{(}\PY{n}{x}\PY{p}{)}    
+            \PY{n}{J} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{p}{(}\PY{n}{a3} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} the next two lines implement da3/da2, first σ\PYZsq{} and then W3.}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{p}{(}\PY{n}{J}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{W3}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{c+c1}{\PYZsh{} then the final lines are the same as in J\PYZus{}W3 but with the layer number bumped down.}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{@} \PY{n}{a1}\PY{o}{.}\PY{n}{T} \PY{o}{/} \PY{n}{x}\PY{o}{.}\PY{n}{size}
+            \PY{k}{return} \PY{n}{J}
+        
+        \PY{c+c1}{\PYZsh{} As previously, fill in all the incomplete lines.}
+        \PY{c+c1}{\PYZsh{} ===YOU SHOULD EDIT THIS FUNCTION===}
+        \PY{k}{def} \PY{n+nf}{J\PYZus{}b2} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{p}{:}
+            \PY{n}{a0}\PY{p}{,} \PY{n}{z1}\PY{p}{,} \PY{n}{a1}\PY{p}{,} \PY{n}{z2}\PY{p}{,} \PY{n}{a2}\PY{p}{,} \PY{n}{z3}\PY{p}{,} \PY{n}{a3} \PY{o}{=} \PY{n}{network\PYZus{}function}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{p}{(}\PY{n}{a3} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{p}{(}\PY{n}{J}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{W3}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{J}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{o}{/} \PY{n}{x}\PY{o}{.}\PY{n}{size}
+            \PY{k}{return} \PY{n}{J}
+\end{Verbatim}
+
+
+    Layer 1 is very similar to Layer 2, but with an addition partial
+derivative term. \[ \frac{\partial C}{\partial \mathbf{W}^{(1)}} =
+   \frac{\partial C}{\partial \mathbf{a}^{(3)}}
+   \left(
+   \frac{\partial \mathbf{a}^{(3)}}{\partial \mathbf{a}^{(2)}}
+   \frac{\partial \mathbf{a}^{(2)}}{\partial \mathbf{a}^{(1)}}
+   \right)
+   \frac{\partial \mathbf{a}^{(1)}}{\partial \mathbf{z}^{(1)}}
+   \frac{\partial \mathbf{z}^{(1)}}{\partial \mathbf{W}^{(1)}}
+   ,\] \[ \frac{\partial C}{\partial \mathbf{b}^{(1)}} =
+   \frac{\partial C}{\partial \mathbf{a}^{(3)}}
+   \left(
+   \frac{\partial \mathbf{a}^{(3)}}{\partial \mathbf{a}^{(2)}}
+   \frac{\partial \mathbf{a}^{(2)}}{\partial \mathbf{a}^{(1)}}
+   \right)
+   \frac{\partial \mathbf{a}^{(1)}}{\partial \mathbf{z}^{(1)}}
+   \frac{\partial \mathbf{z}^{(1)}}{\partial \mathbf{b}^{(1)}}
+   .\] You should be able to adapt lines from the previous cells to
+complete \textbf{both} the weight and bias Jacobian.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} GRADED FUNCTION}
+        
+        \PY{c+c1}{\PYZsh{} Fill in all incomplete lines.}
+        \PY{c+c1}{\PYZsh{} ===YOU SHOULD EDIT THIS FUNCTION===}
+        \PY{k}{def} \PY{n+nf}{J\PYZus{}W1} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{p}{:}
+            \PY{n}{a0}\PY{p}{,} \PY{n}{z1}\PY{p}{,} \PY{n}{a1}\PY{p}{,} \PY{n}{z2}\PY{p}{,} \PY{n}{a2}\PY{p}{,} \PY{n}{z3}\PY{p}{,} \PY{n}{a3} \PY{o}{=} \PY{n}{network\PYZus{}function}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{p}{(}\PY{n}{a3} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{p}{(}\PY{n}{J}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{W3}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{p}{(}\PY{n}{J}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{W2}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z1}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{@} \PY{n}{a0}\PY{o}{.}\PY{n}{T} \PY{o}{/} \PY{n}{x}\PY{o}{.}\PY{n}{size}
+            \PY{k}{return} \PY{n}{J}
+        
+        \PY{c+c1}{\PYZsh{} Fill in all incomplete lines.}
+        \PY{c+c1}{\PYZsh{} ===YOU SHOULD EDIT THIS FUNCTION===}
+        \PY{k}{def} \PY{n+nf}{J\PYZus{}b1} \PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)} \PY{p}{:}
+            \PY{n}{a0}\PY{p}{,} \PY{n}{z1}\PY{p}{,} \PY{n}{a1}\PY{p}{,} \PY{n}{z2}\PY{p}{,} \PY{n}{a2}\PY{p}{,} \PY{n}{z3}\PY{p}{,} \PY{n}{a3} \PY{o}{=} \PY{n}{network\PYZus{}function}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{p}{(}\PY{n}{a3} \PY{o}{\PYZhy{}} \PY{n}{y}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z3}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{p}{(}\PY{n}{J}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{W3}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z2}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{p}{(}\PY{n}{J}\PY{o}{.}\PY{n}{T} \PY{o}{@} \PY{n}{W2}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+            \PY{n}{J} \PY{o}{=} \PY{n}{J} \PY{o}{*} \PY{n}{d\PYZus{}sigma}\PY{p}{(}\PY{n}{z1}\PY{p}{)}
+            \PY{n}{J} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{J}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{keepdims}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{o}{/} \PY{n}{x}\PY{o}{.}\PY{n}{size}
+            \PY{k}{return} \PY{n}{J}
+\end{Verbatim}
+
+
+    \subsection{Test your code before
+submission}\label{test-your-code-before-submission}
+
+To test the code you've written above, run all previous cells (select
+each cell, then press the play button {[} ▶\textbar{} {]} or press
+shift-enter). You can then use the code below to test out your function.
+You don't need to submit these cells; you can edit and run them as much
+as you like.
+
+    First, we generate training data, and generate a network with randomly
+assigned weights and biases.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{training\PYZus{}data}\PY{p}{(}\PY{p}{)}
+         \PY{n}{reset\PYZus{}network}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Next, if you've implemented the assignment correctly, the following code
+will iterate through a steepest descent algorithm using the Jacobians
+you have calculated. The function will plot the training data (in
+green), and your neural network solutions in pink for each iteration,
+and orange for the last output.
+
+It takes about 50,000 iterations to train this network. We can split
+this up though - \textbf{10,000 iterations should take about a minute to
+run}. Run the line below as many times as you like.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plot\PYZus{}training}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{iterations}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{aggression}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{noise}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<IPython.core.display.Javascript object>
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<IPython.core.display.HTML object>
+    \end{verbatim}
+
+    
+    If you wish, you can change parameters of the steepest descent algorithm
+(We'll go into more details in future exercises), but you can change how
+many iterations are plotted, how agressive the step down the Jacobian
+is, and how much noise to add.
+
+You can also edit the parameters of the neural network, i.e. to give it
+different amounts of neurons in the hidden layers by calling,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reset_network(n1, n2)}
+\end{Highlighting}
+\end{Shaded}
+
+Play around with the parameters, and save your favourite result for the
+discussion prompt - \emph{I ❤️ backpropagation}.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
